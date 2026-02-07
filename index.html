@@ -55,15 +55,16 @@
             position: relative;
         }
 
-        .vintage-frame {
-            position: absolute;
-            width: 90%;
-            height: 80%;
-            border: 3px solid #d4af37;
-            box-shadow: 
-                inset 0 0 20px rgba(212, 175, 55, 0.3),
+       .vintage-frame {
+    position: absolute;
+    width: 90%;
+    height: 80%;
+    border: 3px solid #d4af37;
+    box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.3),
                 0 0 30px rgba(212, 175, 55, 0.2);
-        }
+    pointer-events: none;   /* <<< ADD THIS */
+}
+
 
         .vinyl-container {
             position: relative;
