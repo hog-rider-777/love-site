@@ -1174,32 +1174,31 @@ if(nextPage) nextPage.classList.add('active');
 
         let storyStarted = false;
 
-playBtn.addEventListener('click', async () => {
-    try {
+let storyStarted = false;
 
-        if (!isPlaying) {
-            await audio.play();   // <-- prevents browser blocking crash
-            vinyl.classList.add('playing');
-            playBtn.classList.add('playing');
-            isPlaying = true;
+playBtn.addEventListener('click', () => {
 
-            // run ONLY once
-            if (!storyStarted) {
-                storyStarted = true;
-                setTimeout(() => showPage(2), 10000);
-            }
+    if (!isPlaying) {
 
-        } else {
-            audio.pause();
-            vinyl.classList.remove('playing');
-            playBtn.classList.remove('playing');
-            isPlaying = false;
+        // start timer immediately (independent of audio loading)
+        if (!storyStarted) {
+            storyStarted = true;
+            setTimeout(() => showPage(2), 10000);
         }
 
-    } catch (err) {
-        console.log("User gesture required — tap play again");
+        audio.play().catch(()=>{}); // don't block script
+        vinyl.classList.add('playing');
+        playBtn.classList.add('playing');
+        isPlaying = true;
+
+    } else {
+        audio.pause();
+        vinyl.classList.remove('playing');
+        playBtn.classList.remove('playing');
+        isPlaying = false;
     }
 });
+;
 
 
 
