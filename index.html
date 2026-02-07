@@ -987,7 +987,7 @@
                     <span id="duration">3:02</span>
                 </div>
             </div>
-            <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+            <audio id="audio" src="song.mp3"></audio>
         </div>
 
         <!-- Page 2: Double Decker Bus -->
@@ -1158,10 +1158,25 @@ if(nextPage) nextPage.classList.add('active');
 
            
 
-            // Special page effects
-            if (pageNum === 7) {
-                createConfetti();
-            }
+          // Auto story flow
+if(pageNum === 2){
+    setTimeout(()=>showPage(3),8000);
+}
+if(pageNum === 3){
+    setTimeout(()=>showPage(4),6000);
+}
+if(pageNum === 4){
+    setTimeout(()=>showPage(5),6000);
+}
+if(pageNum === 5){
+    setTimeout(()=>showPage(6),7000);
+}
+
+// celebration
+if (pageNum === 7) {
+    createConfetti();
+}
+
         }
 
         
