@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1a1a1a;
+        }
+
+        .flipbook {
+            width: 100%;
+            max-width: 430px;
+            height: 100vh;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Page 1 - Vinyl Player */
+        #page1 {
+            background: linear-gradient(135deg, #2c1810 0%, #4a3428 50%, #2c1810 100%);
+            position: relative;
+        }
+
+        .vintage-frame {
+            position: absolute;
+            width: 90%;
+            height: 80%;
+            border: 3px solid #d4af37;
+            box-shadow: 
+                inset 0 0 20px rgba(212, 175, 55, 0.3),
+                0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .vinyl-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .vinyl {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #1a1a1a 30%, #2d2d2d 30%, #2d2d2d 31%, #1a1a1a 31%, #1a1a1a 100%);
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 3s linear infinite paused;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .vinyl.playing {
+            animation-play-state: running;
+        }
+
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: #8b0000;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+        }
+
+        .vinyl::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .band-name {
+            font-family: 'Courier New', monospace;
+            font-size: 32px;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .song-title {
+            font-size: 16px;
+            color: #d4af37;
+            margin-bottom: 30px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .player-controls {
+            background: rgba(42, 33, 25, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 300px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background: #8b0000;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+
+        .play-button::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 15px solid white;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 3px;
+        }
+
+        .play-button.playing::before {
+            border-left: none;
+            width: 4px;
+            height: 20px;
+            background: white;
+            box-shadow: 8px 0 0 white;
+            margin-left: 0;
+        }
+
+        .timeline {
+            width: 100%;
+            height: 6px;
+            background: #4a3428;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: #d4af37;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            color: #d4af37;
+            font-size: 12px;
+        }
+
+        /* Page 2 - Double Decker Bus */
+        #page2 {
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #90EE90 70%, #90EE90 100%);
+            justify-content: flex-start;
+            padding-top: 50px;
+        }
+
+        .lyrics-text {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+
+        .road-scene {
+            width: 100%;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        .traffic-light {
+            position: absolute;
+            right: 10px;
+            top: -180px;
+            width: 50px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            border: 3px solid #1a1a1a;
+            z-index: 10;
+        }
+
+        .traffic-light::before {
+            content: '';
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 60px;
+            background: #2a2a2a;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .light {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 8px auto;
+            opacity: 0.2;
+            border: 2px solid #000;
+        }
+
+        .light.red { background: #ff0000; }
+        .light.yellow { background: #ffff00; }
+        .light.green { background: #00ff00; }
+        .light.active { 
+            opacity: 1; 
+            box-shadow: 0 0 20px currentColor, inset 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .road {
+            width: 120%;
+            margin-left: -10%;
+            height: 100px;
+            background: #555;
+            position: relative;
+            border-top: 3px solid #333;
+            border-bottom: 3px solid #333;
+        }
+
+        .road-line {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                to right,
+                #fff 0px,
+                #fff 30px,
+                transparent 30px,
+                transparent 60px
+            );
+        }
+
+        .bus {
+            position: absolute;
+            width: 100px;
+            height: 80px;
+            bottom: 10px;
+            left: -120px;
+            animation: moveBus 8s linear infinite;
+        }
+
+        @keyframes moveBus {
+            from { left: -120px; }
+            to { left: 100%; }
+        }
+
+        .bus-body {
+            width: 100%;
+            height: 100%;
+            background: #d32f2f;
+            border-radius: 10px 10px 5px 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 3px solid #1a1a1a;
+        }
+
+        .bus-top {
+            width: 100%;
+            height: 42%;
+            background: #d32f2f;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            border-bottom: 3px solid #1a1a1a;
+        }
+
+        .bus-window {
+            background: rgba(200, 200, 230, 0.9);
+            border: 2px solid #1a1a1a;
+            position: absolute;
+        }
+
+            /* 3 top windows */
+        .bus-window.upper {
+             width:20px;
+             height:16px;
+             top:6px;
+        }
+        .bus-window.upper:nth-of-type(1){ left:10px; }
+        .bus-window.upper:nth-of-type(2){ left:40px; }
+        .bus-window.upper:nth-of-type(3){ left:70px; }
+
+            /* 3 bottom windows */
+        .bus-window.lower{
+              width:20px;
+             height:16px;
+              top:46px;
+        }
+        .bus-window.lower:nth-of-type(4){ left:10px; }
+        .bus-window.lower:nth-of-type(5){ left:40px; }
+        .bus-window.lower:nth-of-type(6){ left:70px; }
+
+
+        .bus-wheels {
+            position: absolute;
+            bottom: -8px;
+            width: 100%;
+        }
+
+        .wheel {
+            width: 30px;
+            height: 30px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            border: 3px solid #555;
+        }
+
+        .wheel:first-child { left: 10px; }
+        .wheel:last-child { right: 10px; }
+
+        /* Page 3 - Crash */
+        #page3 {
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #90EE90 70%, #90EE90 100%);
+            justify-content: flex-start;
+        }
+
+        .crash-scene {
+            position: relative;
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 30px;
+            margin-top: 80px;
+            padding-bottom: 15px;
+        }
+
+        .couple-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .crash-road {
+            position: absolute;
+            bottom: 0;
+            width: 120%;
+            left: -10%;
+            height: 100px;
+            background: #555;
+            border-top: 3px solid #333;
+            border-bottom: 3px solid #333;
+        }
+
+        .crash-road-line {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                to right,
+                #fff 0px,
+                #fff 30px,
+                transparent 30px,
+                transparent 60px
+            );
+        }
+
+        .crash-bus {
+            position: absolute;
+            width: 100px;
+            height: 80px;
+            left: -120px;
+            bottom: 10px;
+            animation: crashBus 2s ease-in-out forwards;
+            z-index: 2;
+        }
+
+        @keyframes crashBus {
+            0% { left: -120px; transform: rotate(0deg); }
+            70% { left: calc(100% - 280px); transform: rotate(-5deg); }
+            100% { left: calc(100% - 280px); transform: rotate(-10deg) scale(0.9); }
+        }
+
+        .boom {
+            position: absolute;
+            font-size: 80px;
+            font-weight: bold;
+            color: #ff4500;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            text-shadow: 
+                4px 4px 0 #000,
+                -2px -2px 0 #fff,
+                2px 2px 0 #ffff00;
+            opacity: 0;
+            transform: scale(0);
+            animation: cartoonBoom 1s ease-out 2s forwards;
+            z-index: 10;
+            letter-spacing: 5px;
+        }
+
+        @keyframes cartoonBoom {
+            0% { 
+                opacity: 0; 
+                transform: scale(0) rotate(-20deg); 
+            }
+            15% { 
+                opacity: 1; 
+                transform: scale(0.5) rotate(-10deg);
+            }
+            30% { 
+                opacity: 1; 
+                transform: scale(1.8) rotate(5deg); 
+            }
+            45% {
+                opacity: 1;
+                transform: scale(1.3) rotate(-3deg);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.6) rotate(2deg);
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1.4) rotate(0deg); 
+            }
+        }
+
+        .boom-bg {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+            animation: boomBurst 1s ease-out 2s forwards;
+            z-index: 9;
+        }
+
+        .boom-bg::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #ffff00 0%, #ff6347 30%, #ff4500 50%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 0.3s ease-out 2s infinite;
+        }
+
+        @keyframes boomBurst {
+            0% { 
+                opacity: 0; 
+                transform: scale(0); 
+            }
+            20% { 
+                opacity: 1; 
+                transform: scale(0.8); 
+            }
+            40% { 
+                opacity: 0.9; 
+                transform: scale(1.2); 
+            }
+            60% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            100% { 
+                opacity: 0.5; 
+                transform: scale(1.3); 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .crash-text {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 3px;
+        }
+
+        /* Page 4 - Cemetery */
+        #page4 {
+            background: linear-gradient(to bottom, #FFB366 0%, #FFCC99 30%, #FFD4A8 60%, #90EE90 60%, #7CB342 100%);
+            position: relative;
+        }
+
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+        }
+
+        .cemetery-scene {
+            position: relative;
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 50px;
+            padding-bottom: 30px;
+            margin-top: 180px;
+        }
+
+        .grass-field {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(to bottom, #90EE90 0%, #7CB342 100%);
+        }
+
+        .grass-blades {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                #6BA32E 0px,
+                #7CB342 2px,
+                #8BC34A 4px,
+                #6BA32E 6px
+            );
+        }
+
+        .grave {
+            width: 80px;
+            height: 100px;
+            background: #666;
+            border-radius: 40px 40px 5px 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            z-index: 2;
+        }
+
+        .grave::before {
+            content: 'RIP';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ddd;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .grave-name {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ddd;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .cemetery-text {
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 2px;
+            text-align: center;
+            width: 90%;
+        }
+
+        /* Page 5 - Heaven */
+        #page5 {
+            background: linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 100%);
+        }
+
+        .heaven-scene {
+            position: relative;
+            width: 100%;
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .angel-wings {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .wing {
+            font-size: 120px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+
+        /* Right wing on the left side */
+        .wing:first-child {
+            animation: flapRight 2s ease-in-out infinite;
+            transform: scaleX(-1);
+        }
+
+        /* Left wing on the right side */
+        .wing:last-child {
+            animation: flapLeft 2s ease-in-out infinite;
+        }
+
+        @keyframes flapLeft {
+            0%, 100% { transform: rotateZ(0deg); }
+            50% { transform: rotateZ(-8deg) translateY(-5px); }
+        }
+
+        @keyframes flapRight {
+            0%, 100% { transform: scaleX(-1) rotateZ(0deg); }
+            50% { transform: scaleX(-1) rotateZ(-8deg) translateY(-5px); }
+        }
+
+        .halo {
+            width: 100px;
+            height: 20px;
+            border: 8px solid #ffd700;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px #ffd700;
+            animation: haloGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes haloGlow {
+            0%, 100% { box-shadow: 0 0 20px #ffd700; }
+            50% { box-shadow: 0 0 40px #ffd700, 0 0 60px #ffd700; }
+        }
+
+        .heaven-text {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.7;
+            animation: floatCloud 20s linear infinite;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+        }
+
+        .cloud1 { width: 100px; height: 40px; top: 10%; left: -100px; }
+        .cloud1::before { width: 50px; height: 50px; top: -25px; left: 10px; }
+        .cloud1::after { width: 60px; height: 40px; top: -15px; right: 10px; }
+
+        .cloud2 { width: 120px; height: 50px; top: 30%; left: -120px; animation-delay: 5s; animation-duration: 25s; }
+        .cloud2::before { width: 60px; height: 60px; top: -30px; left: 15px; }
+        .cloud2::after { width: 70px; height: 50px; top: -20px; right: 15px; }
+
+        .cloud3 { width: 90px; height: 35px; top: 60%; left: -90px; animation-delay: 10s; animation-duration: 22s; }
+        .cloud3::before { width: 45px; height: 45px; top: -20px; left: 10px; }
+        .cloud3::after { width: 55px; height: 35px; top: -15px; right: 10px; }
+
+        @keyframes floatCloud {
+            from { left: -150px; }
+            to { left: 100%; }
+        }
+
+        /* Page 6 - Question */
+        #page6 {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 50%, #ffb6c1 100%);
+            overflow: hidden;
+        }
+
+        .question-container {
+            text-align: center;
+            width: 90%;
+            z-index: 10;
+            position: relative;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-balloon {
+            position: absolute;
+            bottom: -50px;
+            font-size: 30px;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -50px;
+                opacity: 0;
+                transform: translateX(0) rotate(0deg);
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+                transform: translateX(20px) rotate(15deg);
+            }
+        }
+
+        .heart-balloon:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+        .heart-balloon:nth-child(2) { left: 25%; animation-delay: 1.5s; animation-duration: 8s; }
+        .heart-balloon:nth-child(3) { left: 40%; animation-delay: 3s; animation-duration: 7.5s; }
+        .heart-balloon:nth-child(4) { left: 55%; animation-delay: 0.5s; animation-duration: 8.5s; }
+        .heart-balloon:nth-child(5) { left: 70%; animation-delay: 2s; animation-duration: 7s; }
+        .heart-balloon:nth-child(6) { left: 85%; animation-delay: 1s; animation-duration: 8s; }
+        .heart-balloon:nth-child(7) { left: 15%; animation-delay: 2.5s; animation-duration: 7.5s; }
+        .heart-balloon:nth-child(8) { left: 60%; animation-delay: 3.5s; animation-duration: 8s; }
+        .heart-balloon:nth-child(9) { left: 35%; animation-delay: 4s; animation-duration: 7.5s; }
+        .heart-balloon:nth-child(10) { left: 80%; animation-delay: 4.5s; animation-duration: 8.5s; }
+
+        .question-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #c71585;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+        }
+
+        .hearts-decoration {
+            font-size: 40px;
+            margin: 20px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .subtext {
+            font-size: 20px;
+            color: #d63384;
+            margin: 30px 0;
+            font-style: italic;
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .answer-btn {
+            padding: 15px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .answer-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #yesBtn {
+            background: #90EE90;
+            color: #006400;
+        }
+
+        #noBtn {
+            background: #ffcccb;
+            color: #8b0000;
+        }
+
+        /* Cat Warning */
+        .cat-warning {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .cat-warning.show {
+            display: flex;
+        }
+
+        .cat-image {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .warning-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #c71585;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .try-again-btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            background: #c71585;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(199, 21, 133, 0.3);
+        }
+
+        /* Page 7 - Celebration */
+        #page7 {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+        }
+
+        .celebration-container {
+            text-align: center;
+            position: relative;
+            width: 90%;
+        }
+
+        .celebration-text {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: celebrate 1s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-2deg); }
+            75% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="flipbook">
+        <!-- Page 1: Vinyl Player -->
+        <div class="page active" id="page1">
+            <div class="vintage-frame"></div>
+            <div class="band-name">The Smiths</div>
+            <div class="vinyl-container">
+                <div class="vinyl" id="vinyl"></div>
+            </div>
+            <div class="song-title">"There Is A Light That Never Goes Out"</div>
+            <div class="player-controls">
+                <button class="play-button" id="playBtn"></button>
+                <div class="timeline" id="timeline">
+                    <div class="timeline-progress" id="progress"></div>
+                </div>
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">3:02</span>
+                </div>
+            </div>
+            <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        </div>
+
+        <!-- Page 2: Double Decker Bus -->
+        <div class="page" id="page2">
+            <div class="lyrics-text">And if a<br>double decker<br>bus</div>
+            <div class="road-scene">
+                <div class="traffic-light">
+                    <div class="light red active"></div>
+                    <div class="light yellow"></div>
+                    <div class="light green"></div>
+                </div>
+                <div class="road">
+                    <div class="road-line"></div>
+                    <div class="bus">
+                        <div class="bus-body">
+                           <div class="bus-top">
+                                 <div class="bus-window upper"></div>
+                                 <div class="bus-window upper"></div>
+                                <div class="bus-window upper"></div>
+                                </div>
+                                <div class="bus-window lower"></div>
+                                <div class="bus-window lower"></div>
+                                <div class="bus-window lower"></div>
+
+
+                        </div>
+                        <div class="bus-wheels">
+                            <div class="wheel"></div>
+                            <div class="wheel"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Crash -->
+        <div class="page" id="page3">
+            <div class="crash-scene">
+                <img src="couple.jpeg" alt="Us" class="couple-photo">
+                <div class="crash-bus">
+                    <div class="bus-body">
+                        <div class="bus-top">
+                            <div class="bus-window upper"></div>
+                            <div class="bus-window upper"></div>
+                            <div class="bus-window upper"></div>
+                            <div class="bus-window upper"></div>
+                        </div>
+                        <div class="bus-window lower"></div>
+                    </div>
+                    <div class="bus-wheels">
+                        <div class="wheel"></div>
+                        <div class="wheel"></div>
+                    </div>
+                </div>
+                <div class="boom-bg"></div>
+                <div class="boom">BOOM!</div>
+            </div>
+            <div class="crash-road">
+                <div class="crash-road-line"></div>
+            </div>
+            <div class="crash-text">crashes into us</div>
+        </div>
+
+        <!-- Page 4: Cemetery -->
+        <div class="page" id="page4">
+            <div class="sun"></div>
+            <div class="cemetery-text">To die by<br>your side</div>
+            <div class="cemetery-scene">
+                <div class="grave">
+                    <div class="grave-name">Siri</div>
+                </div>
+                <div class="grave">
+                    <div class="grave-name">Nikhilesh</div>
+                </div>
+            </div>
+            <div class="grass-field">
+                <div class="grass-blades"></div>
+            </div>
+        </div>
+
+        <!-- Page 5: Heaven -->
+        <div class="page" id="page5">
+            <div class="clouds">
+                <div class="cloud cloud1"></div>
+                <div class="cloud cloud2"></div>
+                <div class="cloud cloud3"></div>
+            </div>
+            <div class="heaven-scene">
+                <div class="halo"></div>
+                <div class="angel-wings">
+                    <div class="wing">🪽</div>
+                    <div class="wing">🪽</div>
+                </div>
+                <div class="heaven-text">Is such a<br>heavenly<br>way to die</div>
+            </div>
+        </div>
+
+        <!-- Page 6: Question -->
+        <div class="page" id="page6">
+            <div class="floating-hearts">
+                <div class="heart-balloon">💕</div>
+                <div class="heart-balloon">❤️</div>
+                <div class="heart-balloon">💖</div>
+                <div class="heart-balloon">💗</div>
+                <div class="heart-balloon">💝</div>
+                <div class="heart-balloon">💘</div>
+                <div class="heart-balloon">💕</div>
+                <div class="heart-balloon">❤️</div>
+                <div class="heart-balloon">💖</div>
+                <div class="heart-balloon">💗</div>
+            </div>
+            <div class="question-container">
+                <div class="hearts-decoration">💕 ❤️ 💖 💕 ❤️</div>
+                <div class="question-text">Will you be<br>my girlfriend?</div>
+                <div class="subtext">You and me forever?</div>
+                <div class="hearts-decoration">💝 💗 💓 💝 💗</div>
+                <div class="answer-buttons">
+                    <button class="answer-btn" id="yesBtn">Yes! 💕</button>
+                    <button class="answer-btn" id="noBtn">No</button>
+                </div>
+            </div>
+            <div class="cat-warning" id="catWarning">
+                <img src="cat.jpeg" alt="Angry Cat" class="cat-image">
+                <div class="warning-text">How dare you?<br>Try again! 🔫</div>
+                <button class="try-again-btn" id="tryAgainBtn">Okay, okay! 😅</button>
+            </div>
+        </div>
+
+        <!-- Page 7: Celebration -->
+        <div class="page" id="page7">
+            <div class="celebration-container">
+                <div class="celebration-text">
+                    🎉 YAYYY! 🎉<br><br>
+                    I knew you'd<br>say YES!<br><br>
+                    💕 Forever Together 💕
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 7;
+        let audio = document.getElementById('audio');
+        let isPlaying = false;
+        let autoAdvanceTimer = null;
+
+        // Page navigation
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const nextPage = document.getElementById('page' + pageNum);
+if(nextPage) nextPage.classList.add('active');
+
+            
+            
+            
+            currentPage = pageNum;
+
+            // Clear any existing timer
+            if (autoAdvanceTimer) {
+                clearTimeout(autoAdvanceTimer);
+                autoAdvanceTimer = null;
+            }
+
+           
+
+            // Special page effects
+            if (pageNum === 7) {
+                createConfetti();
+            }
+        }
+
+        
+
+        // Audio player - music plays throughout
+        const playBtn = document.getElementById('playBtn');
+        const vinyl = document.getElementById('vinyl');
+        const progress = document.getElementById('progress');
+        const timeline = document.getElementById('timeline');
+        const currentTimeEl = document.getElementById('currentTime');
+
+        let storyStarted = false;
+
+playBtn.addEventListener('click', async () => {
+    try {
+
+        if (!isPlaying) {
+            await audio.play();   // <-- prevents browser blocking crash
+            vinyl.classList.add('playing');
+            playBtn.classList.add('playing');
+            isPlaying = true;
+
+            // run ONLY once
+            if (!storyStarted) {
+                storyStarted = true;
+                setTimeout(() => showPage(2), 10000);
+            }
+
+        } else {
+            audio.pause();
+            vinyl.classList.remove('playing');
+            playBtn.classList.remove('playing');
+            isPlaying = false;
+        }
+
+    } catch (err) {
+        console.log("User gesture required — tap play again");
+    }
+});
+
+
+
+        // Keep music playing even when changing pages
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progress.style.width = percent + '%';
+            
+            const minutes = Math.floor(audio.currentTime / 60);
+            const seconds = Math.floor(audio.currentTime % 60);
+            currentTimeEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        });
+
+        // Loop the audio
+        audio.addEventListener('ended', () => {
+            audio.currentTime = 0;
+            audio.play();
+        });
+
+        timeline.addEventListener('click', (e) => {
+            const rect = timeline.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+
+        // Question page
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const catWarning = document.getElementById('catWarning');
+        const tryAgainBtn = document.getElementById('tryAgainBtn');
+
+        yesBtn.addEventListener('click', () => {
+            showPage(7);
+        });
+
+        noBtn.addEventListener('click', () => {
+            catWarning.classList.add('show');
+        });
+
+        tryAgainBtn.addEventListener('click', () => {
+            catWarning.classList.remove('show');
+        });
+
+        // Confetti
+        function createConfetti() {
+            const colors = ['#ffd700', '#ff69b4', '#87ceeb', '#90ee90', '#ff6347'];
+            const container = document.querySelector('#page7 .celebration-container');
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                    container.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        // Traffic light animation
+        setInterval(() => {
+            const lights = document.querySelectorAll('.traffic-light .light');
+            lights.forEach(light => light.classList.remove('active'));
+            const random = Math.floor(Math.random() * 3);
+            lights[random].classList.add('active');
+        }, 2000);
+    </script>
+</body>
+</html>
