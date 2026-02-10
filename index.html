@@ -418,16 +418,17 @@
 
 
 .couple-photo{
-    width:170px;
-    height:170px;
+    width:180px;
+    height:180px;
     border-radius:15px;
     object-fit:cover;
-    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
 
     position:absolute;
-    bottom:110px;      /* SAME level as bus wheels */
-    right:25px;        /* right corner of road */
-    z-index:3;
+    bottom:100px;
+    right:40px;
+
+    z-index:20;  /* below boom */
 }
 
 
@@ -460,15 +461,17 @@
             );
         }
 
-        .crash-bus {
-            position: absolute;
-            width: 100px;
-            height: 80px;
-            left: -120px;
-            bottom: 18px;
-            animation: crashBus 8s linear forwards;
-            z-index: 2;
-        }
+        .crash-bus{
+    position:absolute;
+    width:100px;
+    height:80px;
+    left:-120px;
+    bottom:118px;
+
+    animation:crashBus 8s linear forwards;
+    z-index:15;
+}
+
 
       @keyframes crashBus{
     0%   { left:-120px; transform:rotate(0deg); }
@@ -482,19 +485,25 @@
 
 .boom{
     position:absolute;
-    bottom:160px;
-    right:120px;
+    bottom:210px;
+    right:130px;
 
     font-size:80px;
     font-weight:bold;
     color:#ff4500;
     font-family:'Impact','Arial Black',sans-serif;
-    text-shadow:4px 4px 0 #000,-2px -2px 0 #fff,2px 2px 0 #ffff00;
+    letter-spacing:5px;
+
+    text-shadow:
+        4px 4px 0 #000,
+        -2px -2px 0 #fff,
+        2px 2px 0 #ffff00;
 
     opacity:0;
     transform:scale(0);
-    pointer-events:none;
+    z-index:50;   /* VERY IMPORTANT — above photo */
 }
+
 
 
         @keyframes cartoonBoom {
@@ -524,14 +533,14 @@
             }
         }
 
-        .boom-bg {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            opacity: 0;
-            animation: boomBurst 1s ease-out 7.4s forwards;
-            z-index: 9;
-        }
+        .boom-bg{
+    position:absolute;
+    width:200px;
+    height:200px;
+    opacity:0;
+    z-index:10;  /* behind everything */
+}
+}
 
         .boom-bg::before {
             content: '';
