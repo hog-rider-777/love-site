@@ -417,17 +417,19 @@
 }
 
 
-.couple-photo {
-    width: 180px;
-    height: 180px;
-    border-radius: 15px;
-    object-fit: cover;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    position: absolute;
-    bottom: 200px;
-    right: 60px;
-    z-index: 2;
+.couple-photo{
+    width:170px;
+    height:170px;
+    border-radius:15px;
+    object-fit:cover;
+    box-shadow:0 10px 30px rgba(0,0,0,0.35);
+
+    position:absolute;
+    bottom:110px;      /* SAME level as bus wheels */
+    right:25px;        /* right corner of road */
+    z-index:3;
 }
+
 
 
 
@@ -468,28 +470,32 @@
             z-index: 2;
         }
 
-       @keyframes crashBus {
-    0%   { left: -120px; transform: rotate(0deg); }
-    92%  { left: 100%; transform: rotate(0deg); }
-    100% { left: calc(100% - 260px); transform: rotate(-10deg) scale(0.95); }
+      @keyframes crashBus{
+    0%   { left:-120px; transform:rotate(0deg); }
+
+    /* bus reaches photo edge */
+    88%  { left:calc(100% - 230px); transform:rotate(0deg); }
+
+    /* impact */
+    100% { left:calc(100% - 230px); transform:rotate(-10deg) scale(0.95); }
 }
 
+.boom{
+    position:absolute;
+    bottom:160px;
+    right:120px;
 
-       .boom {
-    position: absolute;
-    font-size: 80px;
-    font-weight: bold;
-    color: #ff4500;
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    text-shadow: 
-        4px 4px 0 #000,
-        -2px -2px 0 #fff,
-        2px 2px 0 #ffff00;
-    opacity: 0;
-    transform: scale(0);
-    z-index: 10;
-    letter-spacing: 5px;
+    font-size:80px;
+    font-weight:bold;
+    color:#ff4500;
+    font-family:'Impact','Arial Black',sans-serif;
+    text-shadow:4px 4px 0 #000,-2px -2px 0 #fff,2px 2px 0 #ffff00;
+
+    opacity:0;
+    transform:scale(0);
+    pointer-events:none;
 }
+
 
         @keyframes cartoonBoom {
             0% { 
@@ -1208,6 +1214,7 @@ let currentPage = 1;
 
         // Page navigation
         function showPage(pageNum) {
+            resetBoom();
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
@@ -1358,14 +1365,34 @@ if(prevBtn){
 }
 
 
-/* BOOM happens exactly when bus hits */
-const crashBus = document.querySelector('.crash-bus');
-const boom = document.querySelector('.boom');
+/* crash page behaviour */
+function resetBoom(){
+    const boom=document.querySelector('.boom');
+    if(boom){
+        boom.style.opacity="0";
+        boom.style.transform="scale(0)";
+    }
+}
 
-if (crashBus && boom) {
-    crashBus.addEventListener('animationend', () => {
-        boom.style.opacity = "1";
-        boom.style.transform = "scale(1.4)";
+function triggerBoom(){
+    const boom=document.querySelector('.boom');
+    if(!boom) return;
+
+    boom.style.transition="transform .25s ease-out, opacity .2s";
+    boom.style.opacity="1";
+    boom.style.transform="scale(1.4)";
+}
+
+/* detect collision */
+const crashBus=document.querySelector('.crash-bus');
+
+if(crashBus){
+    crashBus.addEventListener("animationiteration",resetBoom);
+    crashBus.addEventListener("animationstart",resetBoom);
+
+    crashBus.addEventListener("animationend",()=>{
+        setTimeout(triggerBoom,120); 
+        /* slight delay = wheel touches photo edge */
     });
 }
 
