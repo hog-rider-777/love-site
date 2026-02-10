@@ -143,19 +143,27 @@
         }
 
         .play-button {
-            width: 60px;
-            height: 60px;
-            background: #8b0000;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px;
-            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
-            transition: transform 0.2s;
-        }
+    width: 60px;
+    height: 60px;
+    background: #8b0000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+    transition: transform 0.2s;
+    position: relative;
+}
+
+/* make whole circle clickable */
+.play-button::before,
+.play-button::after{
+    pointer-events: none;
+}
+
 
         .play-button:hover {
             transform: scale(1.1);
@@ -450,7 +458,7 @@
             height: 80px;
             left: -120px;
             bottom: 18px;
-            animation: crashBus 8s ease-in-out forwards;
+            animation: crashBus 8s linear forwards;
             z-index: 2;
         }
 
@@ -472,7 +480,7 @@
                 2px 2px 0 #ffff00;
             opacity: 0;
             transform: scale(0);
-            animation: cartoonBoom 1s ease-out 2s forwards;
+            animation: cartoonBoom 1s ease-out 7.4s forwards;
             z-index: 10;
             letter-spacing: 5px;
         }
@@ -509,7 +517,7 @@
             width: 200px;
             height: 200px;
             opacity: 0;
-            animation: boomBurst 1s ease-out 2s forwards;
+            animation: boomBurst 1s ease-out 7.4s forwards;
             z-index: 9;
         }
 
@@ -1051,12 +1059,17 @@
                 <div class="crash-bus">
                     <div class="bus-body">
                         <div class="bus-top">
-                            <div class="bus-window upper"></div>
-                            <div class="bus-window upper"></div>
-                            <div class="bus-window upper"></div>
-                            <div class="bus-window upper"></div>
-                        </div>
-                        <div class="bus-window lower"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+</div>
+
+<div class="bus-lower">
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+</div>
+
                     </div>
                     <div class="bus-wheels">
                         <div class="wheel"></div>
