@@ -169,37 +169,38 @@
             transform: scale(1.1);
         }
 
-        .play-button::before {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 15px solid white;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            margin-left: 3px;
-        }
-
-     /* pause bars */
-.play-button.playing::before,
-.play-button.playing::after{
+        /* reset icon layers */
+.play-button::before,
+.play-button::after{
     content:"";
     position:absolute;
-    top:45%;
-    width:2px;
-    height:24px;
+}
+
+/* PLAY triangle */
+.play-button:not(.playing)::before{
+    left:50%;
+    top:50%;
+    transform:translate(-40%,-50%);
+    width:0;
+    height:0;
+    border-left:14px solid white;
+    border-top:9px solid transparent;
+    border-bottom:9px solid transparent;
+}
+
+/* PAUSE bars */
+.play-button.playing::before,
+.play-button.playing::after{
+    top:50%;
+    width:3px;
+    height:20px;
     background:white;
-    border-radius:2px;
     transform:translateY(-50%);
+    border-radius:2px;
 }
 
 .play-button.playing::before{ left:24px; }
 .play-button.playing::after{ right:24px; }
-
-
-/* remove triangle while playing */
-.play-button.playing{
-    font-size:0;
-}
 
 
 
@@ -423,10 +424,11 @@
     object-fit: cover;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     position: absolute;
-    bottom: 198px;
-    right: 40px;
-    z-index: 1;
+    bottom: 200px;
+    right: 60px;
+    z-index: 2;
 }
+
 
 
 
@@ -473,22 +475,21 @@
 }
 
 
-        .boom {
-            position: absolute;
-            font-size: 80px;
-            font-weight: bold;
-            color: #ff4500;
-            font-family: 'Impact', 'Arial Black', sans-serif;
-            text-shadow: 
-                4px 4px 0 #000,
-                -2px -2px 0 #fff,
-                2px 2px 0 #ffff00;
-            opacity: 0;
-            transform: scale(0);
-            animation: cartoonBoom 1s ease-out 7.4s forwards;
-            z-index: 10;
-            letter-spacing: 5px;
-        }
+       .boom {
+    position: absolute;
+    font-size: 80px;
+    font-weight: bold;
+    color: #ff4500;
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    text-shadow: 
+        4px 4px 0 #000,
+        -2px -2px 0 #fff,
+        2px 2px 0 #ffff00;
+    opacity: 0;
+    transform: scale(0);
+    z-index: 10;
+    letter-spacing: 5px;
+}
 
         @keyframes cartoonBoom {
             0% { 
@@ -1015,13 +1016,8 @@
     cursor:pointer;
 }
 
-        document.getElementById("nextBtn").onclick=()=>{
-    if(currentPage<7) showPage(currentPage+1);
-}
-document.getElementById("prevBtn").onclick=()=>{
-    if(currentPage>1) showPage(currentPage-1);
-}
-
+       
+        
         
     </style>
 </head>
@@ -1346,16 +1342,35 @@ playBtn.addEventListener('click', () => {
         }, 2000);
 
 /* navigation buttons */
-document.getElementById("nextBtn").onclick=()=>{
-    if(currentPage<7) showPage(currentPage+1);
-}
-document.getElementById("prevBtn").onclick=()=>{
-    if(currentPage>1) showPage(currentPage-1);
+const nextBtn = document.getElementById("nextBtn");
+const prevBtn = document.getElementById("prevBtn");
+
+if(nextBtn){
+    nextBtn.onclick = () => {
+        if(currentPage < 7) showPage(currentPage + 1);
+    }
 }
 
+if(prevBtn){
+    prevBtn.onclick = () => {
+        if(currentPage > 1) showPage(currentPage - 1);
+    }
 }
+
+
+/* BOOM happens exactly when bus hits */
+const crashBus = document.querySelector('.crash-bus');
+const boom = document.querySelector('.boom');
+
+if (crashBus && boom) {
+    crashBus.addEventListener('animationend', () => {
+        boom.style.opacity = "1";
+        boom.style.transform = "scale(1.4)";
+    });
+}
+
+};   // <<< ADD THIS LINE (closes window.onload)
+
 </script>
-
-    </script>
 </body>
 </html>
