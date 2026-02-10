@@ -461,27 +461,22 @@
             );
         }
 
-        .crash-bus{
+    .crash-bus{
     position:absolute;
     width:100px;
     height:80px;
     left:-120px;
     bottom:118px;
-
     animation:crashBus 8s linear forwards;
     z-index:15;
 }
 
 
-      @keyframes crashBus{
-    0%   { left:-120px; transform:rotate(0deg); }
-
-    /* bus reaches photo edge */
-    88%  { left:calc(100% - 230px); transform:rotate(0deg); }
-
-    /* impact */
-    100% { left:calc(100% - 230px); transform:rotate(-10deg) scale(0.95); }
+  @keyframes crashBus {
+    from { left:-120px; }
+    to   { left:var(--impactX); }
 }
+
 
 .boom{
     position:absolute;
@@ -1234,6 +1229,13 @@ if(nextPage) nextPage.classList.add('active');
             
             
             currentPage = pageNum;
+/* calculate crash when boom page opens */
+if(pageNum === 3){
+    setTimeout(()=>{
+        alignCrash();
+        startCrash();
+    },50);
+}
 
             // Clear any existing timer
             if (autoAdvanceTimer) {
@@ -1406,6 +1408,49 @@ if(crashBus){
 }
 
 };   // <<< ADD THIS LINE (closes window.onload)
+/* ===== CRASH ALIGNMENT SYSTEM ===== */
+
+const photo = document.querySelector('.couple-photo');
+const bus = document.querySelector('.crash-bus');
+const boom = document.querySelector('.boom');
+
+function alignCrash(){
+    if(!photo || !bus) return;
+
+    const photoRect = photo.getBoundingClientRect();
+    const pageRect = document.querySelector('#page3').getBoundingClientRect();
+
+    /* left edge of photo */
+    const impact = photoRect.left - pageRect.left - bus.offsetWidth + 6;
+
+    bus.style.setProperty('--impactX', impact + 'px');
+}
+
+function startCrash(){
+    if(!bus) return;
+    bus.style.animation = "none";
+    bus.offsetHeight;
+    bus.style.animation = "crashBus 8s linear forwards";
+}
+
+function resetBoom(){
+    if(boom){
+        boom.style.opacity="0";
+        boom.style.transform="scale(0)";
+    }
+    if(bus){
+        bus.style.animation="none";
+        bus.style.left="-120px";
+    }
+}
+
+/* boom exactly when bus reaches photo */
+if(bus && boom){
+    bus.addEventListener("animationend", ()=>{
+        boom.style.opacity="1";
+        boom.style.transform="scale(1.4)";
+    });
+}
 
 </script>
 </body>
