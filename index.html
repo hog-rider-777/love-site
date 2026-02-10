@@ -185,15 +185,16 @@
     content:"";
     position:absolute;
     top:50%;
-    width:7px;
-    height:26px;
+    width:4px;
+    height:24px;
     background:white;
-    border-radius:3px;
+    border-radius:2px;
     transform:translateY(-50%);
 }
 
-.play-button.playing::before{ left:22px; }
-.play-button.playing::after{ right:22px; }
+.play-button.playing::before{ left:24px; }
+.play-button.playing::after{ right:24px; }
+
 
 /* remove triangle while playing */
 .play-button.playing{
@@ -1195,7 +1196,9 @@ document.getElementById("prevBtn").onclick=()=>{
     </div>
 
     <script>
-        let currentPage = 1;
+      window.onload = function(){
+let currentPage = 1;
+
         const totalPages = 7;
         let audio = document.getElementById('audio');
         let isPlaying = false;
@@ -1335,6 +1338,18 @@ playBtn.addEventListener('click', () => {
             const random = Math.floor(Math.random() * 3);
             lights[random].classList.add('active');
         }, 2000);
+
+/* navigation buttons */
+document.getElementById("nextBtn").onclick=()=>{
+    if(currentPage<7) showPage(currentPage+1);
+}
+document.getElementById("prevBtn").onclick=()=>{
+    if(currentPage>1) showPage(currentPage-1);
+}
+
+}
+</script>
+
     </script>
 </body>
 </html>
