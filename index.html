@@ -251,11 +251,14 @@
             letter-spacing: 3px;
         }
 
-        .road-scene {
-            width: 100%;
-            position: relative;
-            margin-top: 100px;
-        }
+     .road-scene {
+    width: 100%;
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+}
+
+
 
         .traffic-light {
             position: absolute;
@@ -299,9 +302,9 @@
             box-shadow: 0 0 20px currentColor, inset 0 0 10px rgba(255,255,255,0.5);
         }
 
-     .road {
+   .road {
     position: absolute;
-    bottom: 0;
+    bottom: 100px;   /* lifts road above grass */
     width: 120%;
     left: -10%;
     height: 100px;
@@ -309,6 +312,7 @@
     border-top: 3px solid #333;
     border-bottom: 3px solid #333;
 }
+
 
 
         .road-line {
@@ -326,11 +330,12 @@
             );
         }
 
-      .bus {
+     .bus {
     position: absolute;
     width: 100px;
     height: 80px;
-    bottom: 18px;
+    bottom: 118px;
+
     left: -120px;
     animation: moveBus 8s linear infinite;
 }
@@ -400,34 +405,34 @@
 
 
 .crash-scene {
-    position: relative;
+    position: absolute;
+    bottom: 100px;
     width: 100%;
-    height: 50%;
+    height: 200px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    padding-right: 30px;
-    margin-top: 80px;
-    padding-bottom: 15px;
+    padding-right: 40px;
 }
 
 
-      .couple-photo {
+.couple-photo {
     width: 180px;
     height: 180px;
     border-radius: 15px;
     object-fit: cover;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     position: absolute;
-    bottom: 118px;   /* sits exactly on road */
+    bottom: 198px;
     right: 40px;
     z-index: 1;
 }
 
 
+
         .crash-road {
             position: absolute;
-            bottom: 0;
+           bottom: 100px;
             width: 120%;
             left: -10%;
             height: 100px;
@@ -463,9 +468,10 @@
 
        @keyframes crashBus {
     0%   { left: -120px; transform: rotate(0deg); }
-    85%  { left: calc(100% - 260px); transform: rotate(0deg); }
+    92%  { left: 100%; transform: rotate(0deg); }
     100% { left: calc(100% - 260px); transform: rotate(-10deg) scale(0.95); }
 }
+
 
         .boom {
             position: absolute;
@@ -560,7 +566,7 @@
 
         .crash-text {
             position: absolute;
-            top: 60px;
+            top: 40px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Courier New', monospace;
