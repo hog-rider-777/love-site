@@ -171,14 +171,30 @@
             margin-left: 3px;
         }
 
-        .play-button.playing::before {
-            border-left: none;
-            width: 4px;
-            height: 20px;
-            background: white;
-            box-shadow: 8px 0 0 white;
-            margin-left: 0;
-        }
+     .play-button.playing::before {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 22px;
+    background: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-9px, -50%);
+    border-radius: 2px;
+}
+
+.play-button.playing::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 22px;
+    background: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(3px, -50%);
+    border-radius: 2px;
+}
+
 
         .timeline {
             width: 100%;
@@ -206,11 +222,17 @@
         }
 
         /* Page 2 - Double Decker Bus */
-        #page2 {
-            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #90EE90 70%, #90EE90 100%);
-            justify-content: flex-start;
-            padding-top: 50px;
-        }
+     #page2, #page3 {
+    background: linear-gradient(
+        to bottom,
+        #87CEEB 0%,
+        #87CEEB 68%,
+        #7ec850 68%,
+        #7ec850 100%
+    );
+    justify-content: flex-start;
+}
+
 
         .lyrics-text {
             font-family: 'Courier New', monospace;
@@ -270,15 +292,17 @@
             box-shadow: 0 0 20px currentColor, inset 0 0 10px rgba(255,255,255,0.5);
         }
 
-        .road {
-            width: 120%;
-            margin-left: -10%;
-            height: 100px;
-            background: #555;
-            position: relative;
-            border-top: 3px solid #333;
-            border-bottom: 3px solid #333;
-        }
+     .road {
+    position: absolute;
+    bottom: 0;
+    width: 120%;
+    left: -10%;
+    height: 100px;
+    background: #555;
+    border-top: 3px solid #333;
+    border-bottom: 3px solid #333;
+}
+
 
         .road-line {
             position: absolute;
@@ -295,111 +319,104 @@
             );
         }
 
-        .bus {
-            position: absolute;
-            width: 100px;
-            height: 80px;
-            bottom: 10px;
-            left: -120px;
-            animation: moveBus 8s linear infinite;
-        }
+      .bus {
+    position: absolute;
+    width: 100px;
+    height: 80px;
+    bottom: 18px;
+    left: -120px;
+    animation: moveBus 8s linear infinite;
+}
 
-        @keyframes moveBus {
-            from { left: -120px; }
-            to { left: 100%; }
-        }
+@keyframes moveBus {
+    from { left: -120px; }
+    to { left: 100%; }
+}
 
-        .bus-body {
-            width: 100%;
-            height: 100%;
-            background: #d32f2f;
-            border-radius: 10px 10px 5px 5px;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border: 3px solid #1a1a1a;
-        }
+.bus-body {
+    width: 100%;
+    height: 100%;
+    background: #d32f2f;
+    border-radius: 10px 10px 5px 5px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 3px solid #1a1a1a;
+    display: flex;
+    flex-direction: column;
+}
 
-        .bus-top {
-            width: 100%;
-            height: 42%;
-            background: #d32f2f;
-            border-radius: 10px 10px 0 0;
-            position: relative;
-            border-bottom: 3px solid #1a1a1a;
-        }
+/* top deck */
+.bus-top {
+    height: 45%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 3px solid #1a1a1a;
+}
 
-        .bus-window {
-            background: rgba(200, 200, 230, 0.9);
-            border: 2px solid #1a1a1a;
-            position: absolute;
-        }
+/* bottom deck */
+.bus-lower {
+    height: 45%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
-            /* 3 top windows */
-        .bus-window.upper {
-             width:20px;
-             height:16px;
-             top:6px;
-        }
-        .bus-window.upper:nth-of-type(1){ left:10px; }
-        .bus-window.upper:nth-of-type(2){ left:40px; }
-        .bus-window.upper:nth-of-type(3){ left:70px; }
+/* windows */
+.bus-window {
+    width: 20%;
+    height: 55%;
+    background: rgba(220, 230, 255, 0.95);
+    border: 2px solid #1a1a1a;
+    border-radius: 3px;
+}
 
-            /* 3 bottom windows */
-        .bus-window.lower{
-              width:20px;
-             height:16px;
-              top:46px;
-        }
-        .bus-window.lower:nth-of-type(4){ left:10px; }
-        .bus-window.lower:nth-of-type(5){ left:40px; }
-        .bus-window.lower:nth-of-type(6){ left:70px; }
+.bus-wheels {
+    position: absolute;
+    bottom: -8px;
+    width: 100%;
+}
+
+.wheel {
+    width: 30px;
+    height: 30px;
+    background: #333;
+    border-radius: 50%;
+    position: absolute;
+    border: 3px solid #555;
+}
+
+.wheel:first-child { left: 10px; }
+.wheel:last-child { right: 10px; }
+
+/* Page 3 - Crash */
 
 
-        .bus-wheels {
-            position: absolute;
-            bottom: -8px;
-            width: 100%;
-        }
+.crash-scene {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 30px;
+    margin-top: 80px;
+    padding-bottom: 15px;
+}
 
-        .wheel {
-            width: 30px;
-            height: 30px;
-            background: #333;
-            border-radius: 50%;
-            position: absolute;
-            border: 3px solid #555;
-        }
 
-        .wheel:first-child { left: 10px; }
-        .wheel:last-child { right: 10px; }
+      .couple-photo {
+    width: 180px;
+    height: 180px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: absolute;
+    bottom: 118px;   /* sits exactly on road */
+    right: 40px;
+    z-index: 1;
+}
 
-        /* Page 3 - Crash */
-        #page3 {
-            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 70%, #90EE90 70%, #90EE90 100%);
-            justify-content: flex-start;
-        }
-
-        .crash-scene {
-            position: relative;
-            width: 100%;
-            height: 50%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-            padding-right: 30px;
-            margin-top: 80px;
-            padding-bottom: 15px;
-        }
-
-        .couple-photo {
-            width: 180px;
-            height: 180px;
-            border-radius: 15px;
-            object-fit: cover;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
 
         .crash-road {
             position: absolute;
@@ -432,16 +449,16 @@
             width: 100px;
             height: 80px;
             left: -120px;
-            bottom: 10px;
-            animation: crashBus 2s ease-in-out forwards;
+            bottom: 18px;
+            animation: crashBus 8s ease-in-out forwards;
             z-index: 2;
         }
 
-        @keyframes crashBus {
-            0% { left: -120px; transform: rotate(0deg); }
-            70% { left: calc(100% - 280px); transform: rotate(-5deg); }
-            100% { left: calc(100% - 280px); transform: rotate(-10deg) scale(0.9); }
-        }
+       @keyframes crashBus {
+    0%   { left: -120px; transform: rotate(0deg); }
+    85%  { left: calc(100% - 260px); transform: rotate(0deg); }
+    100% { left: calc(100% - 260px); transform: rotate(-10deg) scale(0.95); }
+}
 
         .boom {
             position: absolute;
@@ -1004,13 +1021,17 @@
                     <div class="bus">
                         <div class="bus-body">
                            <div class="bus-top">
-                                 <div class="bus-window upper"></div>
-                                 <div class="bus-window upper"></div>
-                                <div class="bus-window upper"></div>
-                                </div>
-                                <div class="bus-window lower"></div>
-                                <div class="bus-window lower"></div>
-                                <div class="bus-window lower"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+</div>
+
+<div class="bus-lower">
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+    <div class="bus-window"></div>
+</div>
+
 
 
                         </div>
@@ -1100,10 +1121,10 @@
                 <div class="heart-balloon">💗</div>
             </div>
             <div class="question-container">
-                <div class="hearts-decoration">💕 ❤️ 💖 💕 ❤️</div>
-                <div class="question-text">Will you be<br>my girlfriend?</div>
-                <div class="subtext">You and me forever?</div>
-                <div class="hearts-decoration">💝 💗 💓 💝 💗</div>
+           
+                <div class="question-text">Will you be<br>my Valentine?</div>
+                <div class="subtext">(although we cant meet on 14th?😔)</div>
+                
                 <div class="answer-buttons">
                     <button class="answer-btn" id="yesBtn">Yes! 💕</button>
                     <button class="answer-btn" id="noBtn">No</button>
@@ -1112,7 +1133,7 @@
             <div class="cat-warning" id="catWarning">
                 <img src="cat.jpeg" alt="Angry Cat" class="cat-image">
                 <div class="warning-text">How dare you?<br>Try again! 🔫</div>
-                <button class="try-again-btn" id="tryAgainBtn">Okay, okay! 😅</button>
+                <button class="try-again-btn" id="tryAgainBtn">say YES🥹</button>
             </div>
         </div>
 
@@ -1122,7 +1143,7 @@
                 <div class="celebration-text">
                     🎉 YAYYY! 🎉<br><br>
                     I knew you'd<br>say YES!<br><br>
-                    💕 Forever Together 💕
+                    🥰😘
                 </div>
             </div>
         </div>
