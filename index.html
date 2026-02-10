@@ -179,29 +179,27 @@
             margin-left: 3px;
         }
 
-     .play-button.playing::before {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 22px;
-    background: white;
-    left: 50%;
-    top: 50%;
-    transform: translate(-9px, -50%);
-    border-radius: 2px;
+     /* pause bars */
+.play-button.playing::before,
+.play-button.playing::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    width:7px;
+    height:26px;
+    background:white;
+    border-radius:3px;
+    transform:translateY(-50%);
 }
 
-.play-button.playing::after {
-    content: "";
-    position: absolute;
-    width: 6px;
-    height: 22px;
-    background: white;
-    left: 50%;
-    top: 50%;
-    transform: translate(3px, -50%);
-    border-radius: 2px;
+.play-button.playing::before{ left:22px; }
+.play-button.playing::after{ right:22px; }
+
+/* remove triangle while playing */
+.play-button.playing{
+    font-size:0;
 }
+
 
 
         .timeline {
@@ -989,7 +987,35 @@
             }
         }
 
-       
+       .nav-buttons{
+    position:absolute;
+    bottom:15px;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    padding:0 20px;
+    z-index:200;
+}
+
+.nav-buttons button{
+    background:rgba(0,0,0,0.5);
+    color:white;
+    border:none;
+    width:55px;
+    height:40px;
+    border-radius:12px;
+    font-size:22px;
+    cursor:pointer;
+}
+
+        document.getElementById("nextBtn").onclick=()=>{
+    if(currentPage<7) showPage(currentPage+1);
+}
+document.getElementById("prevBtn").onclick=()=>{
+    if(currentPage>1) showPage(currentPage-1);
+}
+
+        
     </style>
 </head>
 <body>
@@ -1161,7 +1187,11 @@
             </div>
         </div>
 
-       
+               <div class="nav-buttons">
+            <button id="prevBtn">◀</button>
+            <button id="nextBtn">▶</button>
+        </div>
+
     </div>
 
     <script>
@@ -1193,18 +1223,6 @@ if(nextPage) nextPage.classList.add('active');
            
 
           // Auto story flow
-if(pageNum === 2){
-    setTimeout(()=>showPage(3),8000);
-}
-if(pageNum === 3){
-    setTimeout(()=>showPage(4),6000);
-}
-if(pageNum === 4){
-    setTimeout(()=>showPage(5),6000);
-}
-if(pageNum === 5){
-    setTimeout(()=>showPage(6),7000);
-}
 
 // celebration
 if (pageNum === 7) {
@@ -1231,7 +1249,7 @@ playBtn.addEventListener('click', () => {
         // start timer immediately (independent of audio loading)
         if (!storyStarted) {
             storyStarted = true;
-            setTimeout(() => showPage(2), 10000);
+  
         }
 
         audio.play().catch(()=>{}); // don't block script
