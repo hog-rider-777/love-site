@@ -1229,13 +1229,7 @@ if(nextPage) nextPage.classList.add('active');
             
             
             currentPage = pageNum;
-/* calculate crash when boom page opens */
-if(pageNum === 3){
-    setTimeout(()=>{
-        alignCrash();
-        startCrash();
-    },50);
-}
+
 
             // Clear any existing timer
             if (autoAdvanceTimer) {
