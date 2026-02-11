@@ -1217,7 +1217,8 @@ let currentPage = 1;
 
         // Page navigation
         function showPage(pageNum) {
-            resetBoom();
+          if (typeof runCrash === "function") resetBoomSafe();
+
             document.querySelectorAll('.page').forEach(page => {
                 page.classList.remove('active');
             });
@@ -1374,6 +1375,18 @@ if(prevBtn){
     }
 }
 
+function resetBoomSafe(){
+    const boom=document.querySelector('.boom');
+    const bus=document.querySelector('.crash-bus');
+    if(boom){
+        boom.style.opacity="0";
+        boom.style.transform="scale(0)";
+    }
+    if(bus){
+        bus.style.animation="none";
+        bus.style.left="-120px";
+    }
+}
 
 };  // closes window.onload
 
