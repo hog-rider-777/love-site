@@ -1375,81 +1375,56 @@ if(prevBtn){
 }
 
 
-/* crash page behaviour */
-function resetBoom(){
-    const boom=document.querySelector('.boom');
-    if(boom){
-        boom.style.opacity="0";
-        boom.style.transform="scale(0)";
-    }
+};  // closes window.onload
+
+
+/* ===== CRASH SYSTEM (WORKING VERSION) ===== */
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+const page3 = document.getElementById("page3");
+const bus   = document.querySelector(".crash-bus");
+const photo = document.querySelector(".couple-photo");
+const boom  = document.querySelector(".boom");
+
+function runCrash(){
+
+    if(!bus || !photo) return;
+
+    /* reset */
+    bus.style.animation = "none";
+    boom.style.opacity = "0";
+    boom.style.transform = "scale(0)";
+    bus.offsetHeight;
+
+    /* calculate impact point (LEFT EDGE of photo) */
+    const photoRect = photo.getBoundingClientRect();
+    const pageRect  = page3.getBoundingClientRect();
+    const impactX   = photoRect.left - pageRect.left - bus.offsetWidth + 8;
+
+    bus.style.setProperty("--impactX", impactX + "px");
+
+    /* CHANGE SPEED HERE */
+    bus.style.animation = "crashBus 6s linear forwards";
+
 }
 
-function triggerBoom(){
-    const boom=document.querySelector('.boom');
-    if(!boom) return;
+/* when entering crash page */
+const observer = new MutationObserver(()=>{
+    if(page3.classList.contains("active")){
+        setTimeout(runCrash,80);
+    }
+});
 
-    boom.style.transition="transform .25s ease-out, opacity .2s";
+observer.observe(page3,{attributes:true});
+
+/* boom when bus hits */
+bus.addEventListener("animationend",()=>{
     boom.style.opacity="1";
     boom.style.transform="scale(1.4)";
-}
+});
 
-/* detect collision */
-const crashBus=document.querySelector('.crash-bus');
-
-if(crashBus){
-    crashBus.addEventListener("animationiteration",resetBoom);
-    crashBus.addEventListener("animationstart",resetBoom);
-
-    crashBus.addEventListener("animationend",()=>{
-        setTimeout(triggerBoom,120); 
-        /* slight delay = wheel touches photo edge */
-    });
-}
-
-};   // <<< ADD THIS LINE (closes window.onload)
-/* ===== CRASH ALIGNMENT SYSTEM ===== */
-
-const photo = document.querySelector('.couple-photo');
-const bus = document.querySelector('.crash-bus');
-const boom = document.querySelector('.boom');
-
-function alignCrash(){
-    if(!photo || !bus) return;
-
-    const photoRect = photo.getBoundingClientRect();
-    const pageRect = document.querySelector('#page3').getBoundingClientRect();
-
-    /* left edge of photo */
-    const impact = photoRect.left - pageRect.left - bus.offsetWidth + 6;
-
-    bus.style.setProperty('--impactX', impact + 'px');
-}
-
-function startCrash(){
-    if(!bus) return;
-    bus.style.animation = "none";
-    bus.offsetHeight;
-    bus.style.animation = "crashBus 6s linear forwards";
-}
-
-function resetBoom(){
-    if(boom){
-        boom.style.opacity="0";
-        boom.style.transform="scale(0)";
-    }
-    if(bus){
-        bus.style.animation="none";
-        bus.style.left="-120px";
-    }
-}
-
-/* boom exactly when bus reaches photo */
-if(bus && boom){
-    bus.addEventListener("animationend", ()=>{
-        boom.style.opacity="1";
-        boom.style.transform="scale(1.4)";
-    });
-}
+});
 
 </script>
 </body>
