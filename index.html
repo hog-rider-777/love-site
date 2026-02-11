@@ -1412,7 +1412,13 @@ function runCrash(){
     bus.style.setProperty("--impactX", impactX + "px");
 
     /* CHANGE SPEED HERE */
-    bus.style.animation = "crashBus 6s linear forwards";
+   const screenWidth = window.innerWidth;
+const travelDistance = impactX + 120; // from start position
+const baseDistance = screenWidth + 120; // page2 travel
+const duration = 6 * (travelDistance / baseDistance);
+
+bus.style.animation = `crashBus ${duration}s linear forwards`;
+
 
 }
 
